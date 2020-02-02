@@ -10,7 +10,8 @@
         android:id="@+id/countIncButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
         android:cursorVisible="false"
         android:freezesText="false"
         android:onClick="increaseCount"
@@ -19,9 +20,26 @@
         android:textSize="48dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.498" />
+        app:layout_constraintStart_toEndOf="@+id/clearButton"
+        app:layout_constraintTop_toBottomOf="@+id/countText"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/countDecButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:autoText="false"
+        android:onClick="decreaseCount"
+        android:text="-"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textSize="48dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/clearButton"
+        app:layout_constraintTop_toBottomOf="@+id/countText"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/clearButton"
@@ -36,32 +54,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/countText" />
 
-    <Button
-        android:id="@+id/countDecButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
-        android:autoText="false"
-        android:onClick="decreaseCount"
-        android:text="-"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textSize="48dp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.498" />
-
     <TextView
         android:id="@+id/countText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
         android:text="0"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textSize="64dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.347" />
 </androidx.constraintlayout.widget.ConstraintLayout>
