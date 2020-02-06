@@ -12,24 +12,58 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
+import android.widget.Button;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity
 {
+    Button addButton;
+    Button subButton;
+    Button resetButton;
+    TextView countText;
+
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // by default, count val is 0
-        // if a saved instance exists, there should be a saved count val
-        int countVal = 0;
-        if (savedInstanceState != null)
-        {
-            countVal = savedInstanceState.getInt("countVal");
-        }
         setContentView(R.layout.activity_main);
-        updateCountString(countVal);
+
+        // get references to all current widgets
+        addButton = super.findViewById(R.id.countIncButton);
+        subButton = super.findViewById(R.id.countDecButton);
+        resetButton = super.findViewById(R.id.clearButton);
+        countText = super.findViewById(R.id.countText);
+
+        // add click listener for "add" button
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // increase value of count each click event
+                String countStr = countText.getText().toString();
+                int countVal = (int) Integer.parseInt(countStr) + 1;
+                countText.setText(String.valueOf(countVal));
+            }
+        }
+        );
+
+        // add click listener for "sub" button
+        subButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // decrease value of count for each click event
+                String countStr = countText.getText().toString();
+                int countVal = (int) Integer.parseInt(countStr) - 1;
+                countText.setText(String.valueOf(countVal));
+            }
+        });
+
+        // add click listener for "reset" button
+        resetButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // set value to 0 when clicked
+                countText.setText("0");
+            }
+        });
     }
 
     @Override
@@ -37,50 +71,23 @@ public class MainActivity extends AppCompatActivity
     {
         super.onSaveInstanceState(savedInstanceState);
         // save the count val to maintain value when orientation changes
-        int countVal = parseCountInt();
+        countText = super.findViewById(R.id.countText);
+        int countVal = (int)Integer.parseInt(countText.getText().toString());
         savedInstanceState.putInt("countVal", countVal);
     }
 
-    // when the button labeled "+" is tapped,
-    // increase the value of count
-    public void increaseCount(View view)
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState)
     {
-        int countVal = parseCountInt() + 1;
-        updateCountString(countVal);
-        return;
-    }
-
-    // when the button labeled "-" is tapped,
-    // decrease the value of count
-    public void decreaseCount(View view)
-    {
-        int countVal = parseCountInt() - 1;
-        updateCountString(countVal);
-        return;
-    }
-
-    // when the button labeled "RESET" is tapped,
-    // reset the value of count
-    public void resetCount(View view)
-    {
-        updateCountString(0);
-        return;
-    }
-
-    // parse the int value from the count text object
-    private int parseCountInt()
-    {
-        TextView countText = super.findViewById(R.id.countText);
-        String countStr = countText.getText().toString();
-        int countVal = (int)Integer.parseInt(countStr);
-        return countVal;
-    }
-
-    // get the count text object and set its value to countVal
-    private void updateCountString(int countVal)
-    {
-        TextView countText = super.findViewById(R.id.countText);
-        countText.setText(String.valueOf(countVal));
-        return;
+        super.onRestoreInstanceState(savedInstanceState);
+        int countVal = 0;
+        // if saved instance exists, should be a count value to restore
+        if (savedInstanceState != null)
+        {
+            countVal = savedInstanceState.getInt("countVal");
+        }
+        // restore count value to count text
+        countText = super.findViewById(R.id.countText);
+        countText.setText(Integer.toString(countVal));
     }
 }
